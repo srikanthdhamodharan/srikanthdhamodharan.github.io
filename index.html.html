@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srikanth Dhamodharan | Data Analyst & Business Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c10;
+  --bg2: #0d1520;
+  --bg3: #111c2a;
+  --accent: #00c8ff;
+  --accent2: #00ff9d;
+  --accent3: #ff6b35;
+  --text: #e8edf5;
+  --text2: #8a9bb5;
+  --text3: #4a5a72;
+  --border: rgba(0,200,255,0.12);
+  --card: rgba(13,21,32,0.8);
+  --glow: 0 0 40px rgba(0,200,255,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* NOISE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.4;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(8,12,16,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,200,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,255,0.08) 0%, transparent 70%);
+  top: 10%; left: -10%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-glow2 {
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,157,0.06) 0%, transparent 70%);
+  bottom: 10%; right: 5%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-30px); }
+}
+
+.hero-content {
+  position: relative;
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,200,255,0.08);
+  border: 1px solid rgba(0,200,255,0.2);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-name span {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.3s;
+  box-shadow: 0 0 30px rgba(0,200,255,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(0,200,255,0.5);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s;
+  background: rgba(255,255,255,0.02);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,200,255,0.05);
+}
+
+.hero-stats {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeUp 0.6s 0.5s ease both;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 28px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  transform: translateX(-4px);
+}
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTIONS */
+section {
+  padding: 100px 60px;
+  position: relative;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 60px;
+}
+
+.section-title span {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--text2);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.about-text p strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.about-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+.highlight-item:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.highlight-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.highlight-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.highlight-desc {
+  font-size: 0.875rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+
+/* SKILLS */
+.skills-section { background: var(--bg2); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.skill-category {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all 0.3s;
+}
+
+.skill-category:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  transform: translateY(-4px);
+}
+
+.skill-cat-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: rgba(0,200,255,0.06);
+  border: 1px solid rgba(0,200,255,0.15);
+  color: var(--text2);
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s;
+}
+
+.skill-tag:hover {
+  background: rgba(0,200,255,0.12);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* PROJECTS */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 28px;
+}
+
+.project-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s;
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(0,200,255,0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 60px rgba(0,200,255,0.15);
+  transform: translateY(-6px);
+}
+
+.project-card:hover::before { opacity: 1; }
+
+.project-header {
+  padding: 28px 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.project-icon {
+  font-size: 2.2rem;
+}
+
+.project-links {
+  display: flex;
+  gap: 12px;
+}
+
+.project-link {
+  color: var(--text3);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(0,200,255,0.05);
+}
+
+.project-live {
+  background: rgba(0,255,157,0.08);
+  border-color: rgba(0,255,157,0.2);
+  color: var(--accent2);
+}
+
+.project-live:hover {
+  color: var(--accent2);
+  border-color: var(--accent2);
+  background: rgba(0,255,157,0.15);
+}
+
+.project-body {
+  padding: 20px 28px 28px;
+}
+
+.project-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.project-desc {
+  color: var(--text2);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.project-metrics {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.metric {
+  background: rgba(0,200,255,0.06);
+  border: 1px solid rgba(0,200,255,0.12);
+  border-radius: 8px;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+.metric-val {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.metric-lbl {
+  font-size: 0.7rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 3px;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stack-tag {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text3);
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* FEATURED PROJECT */
+.project-card.featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.project-card.featured .project-header {
+  flex-direction: column;
+  padding: 28px;
+  border-right: 1px solid var(--border);
+  width: 280px;
+  gap: 20px;
+}
+
+.project-card.featured .project-body {
+  padding: 28px;
+}
+
+.featured-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(0,255,157,0.1));
+  border: 1px solid rgba(0,200,255,0.3);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* EXPERIENCE */
+.experience-section { background: var(--bg2); }
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+.timeline-item {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 0 20px rgba(0,200,255,0.3);
+}
+
+.timeline-content {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  flex: 1;
+  transition: all 0.3s;
+}
+
+.timeline-content:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+}
+
+.timeline-role {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.timeline-company {
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.timeline-date {
+  color: var(--text3);
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 14px;
+}
+
+.timeline-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeline-bullets li {
+  color: var(--text2);
+  font-size: 0.875rem;
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.timeline-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 0.7rem;
+  top: 3px;
+}
+
+/* EDUCATION */
+.edu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.edu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.edu-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(0,200,255,0.05) 0%, transparent 70%);
+}
+
+.edu-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  transform: translateY(-4px);
+}
+
+.edu-degree {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.edu-school {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.edu-date {
+  color: var(--text3);
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 16px;
+}
+
+.edu-grade {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(0,255,157,0.1), rgba(0,200,255,0.1));
+  border: 1px solid rgba(0,255,157,0.2);
+  color: var(--accent2);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 16px;
+}
+
+.edu-modules {
+  color: var(--text2);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+/* ACHIEVEMENTS */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.achievement-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+
+.achievement-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--glow);
+  transform: translateY(-3px);
+}
+
+.achievement-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.achievement-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.achievement-desc {
+  color: var(--text2);
+  font-size: 0.825rem;
+  line-height: 1.6;
+}
+
+/* CONTACT */
+.contact-section { background: var(--bg2); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-text p {
+  color: var(--text2);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--glow);
+  transform: translateX(6px);
+}
+
+.contact-link-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.contact-link-label {
+  font-size: 0.75rem;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.contact-availability {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.avail-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.avail-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.avail-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent2);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+.avail-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--accent2);
+}
+
+.avail-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.avail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.avail-item:last-child { border-bottom: none; }
+
+.avail-key {
+  font-size: 0.85rem;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.avail-val {
+  font-size: 0.875rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.avail-val.green { color: var(--accent2); }
+.avail-val.blue { color: var(--accent); }
+
+/* FOOTER */
+footer {
+  padding: 40px 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-text {
+  color: var(--text3);
+  font-size: 0.825rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  color: var(--text3);
+  text-decoration: none;
+  font-size: 0.825rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--accent); }
+
+/* DIVIDER */
+.section-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 2px;
+  margin-bottom: 60px;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 20px 30px; }
+  .hero { padding: 120px 30px 80px; flex-direction: column; }
+  .hero-stats { position: static; transform: none; flex-direction: row; flex-wrap: wrap; margin-top: 60px; }
+  section { padding: 80px 30px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .edu-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-template-columns: 1fr; }
+  .project-card.featured .project-header { width: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SD.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      Available from September 2026 · UAE & Ireland
+    </div>
+    <h1 class="hero-name">Srikanth<br><span>Dhamodharan</span></h1>
+    <p class="hero-title">Data Analyst · Business Analytics · ML Engineer</p>
+    <p class="hero-desc">
+      MSc Business Analytics candidate at Dublin City University with a First-Class BSc in Computer Science Engineering.
+      I turn complex data into decisions that matter, from UAE bank risk modelling to live smart city intelligence platforms.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">
+        ◆ View My Work
+      </a>
+      <a href="https://uae-smartcity-analytics.streamlit.app" target="_blank" class="btn-secondary">
+        ↗ Live Dashboard
+      </a>
+      <a href="https://linkedin.com/in/sri-dhamodharan" target="_blank" class="btn-secondary">
+        ↗ LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Projects</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">86%+</div>
+      <div class="stat-label">ML Accuracy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">IEEE</div>
+      <div class="stat-label">Published</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8.3</div>
+      <div class="stat-label">CGPA / 10</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 · About</div>
+  <h2 class="section-title">The person behind<br>the <span>data</span></h2>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        I am a <strong>data professional</strong> combining a First-Class BSc in Computer Science Engineering from India with an MSc in Business Analytics at <strong>Dublin City University, Ireland</strong> — one of Europe's QS top 500 ranked universities.
+      </p>
+      <p>
+        My background is rare — I bridge the gap between <strong>technical programming</strong> and <strong>business decision making</strong>. I am as comfortable building machine learning pipelines in Python as I am presenting data-driven recommendations to senior stakeholders.
+      </p>
+      <p>
+        I have built and deployed a <strong>live UAE Smart City Analytics web application</strong>, a bank customer churn prediction system with 86%+ ML accuracy, and a Dubai real estate market intelligence dashboard — all independently, while completing a full-time postgraduate degree.
+      </p>
+      <p>
+        Currently seeking <strong>Data Analyst, Business Analyst and BI Analyst roles</strong> in UAE and Ireland from September 2026.
+      </p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <div class="highlight-icon">🎓</div>
+        <div>
+          <div class="highlight-title">MSc Business Analytics · DCU Ireland</div>
+          <div class="highlight-desc">QS Top 500 globally. Modules: ML and AI, Business Intelligence, Statistical Models, Python and SQL Analytics. Elected Class Representative.</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon">⚙️</div>
+        <div>
+          <div class="highlight-title">BSc Computer Science Engineering · First Class</div>
+          <div class="highlight-desc">8.3/10 CGPA. Sri Sairam Institute of Technology, Chennai. Foundation in algorithms, DBMS, ML, statistics and software engineering.</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon">📄</div>
+        <div>
+          <div class="highlight-title">IEEE Published Researcher</div>
+          <div class="highlight-desc">Published peer-reviewed paper on IoT analytics framework at IEEE Xplore. Python backend processing 1,000+ data points per minute at 99.9% accuracy.</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon">🏆</div>
+        <div>
+          <div class="highlight-title">Class Representative · Both Degrees</div>
+          <div class="highlight-desc">Elected Class Representative for both MSc at DCU and BSc at SSIT. Presented at formal Programme Board Review Meetings with senior officials.</div>
+        </div>
+      </div>
+      <div class="highlight-item">
+        <div class="highlight-icon">🌍</div>
+        <div>
+          <div class="highlight-title">Targeting UAE and Ireland Markets</div>
+          <div class="highlight-desc">Eligible for Irish Graduate Visa from September 2026. UAE Job Seeker Visa eligible via DCU QS ranking. No sponsorship required in Ireland.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-label">02 · Skills</div>
+  <h2 class="section-title">Technical <span>arsenal</span></h2>
+  <div class="skills-grid reveal">
+    <div class="skill-category">
+      <div class="skill-cat-title">🐍 Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">R</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">C</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">🤖 Machine Learning</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">Random Forest</span>
+        <span class="skill-tag">Gradient Boosting</span>
+        <span class="skill-tag">Logistic Regression</span>
+        <span class="skill-tag">Classification</span>
+        <span class="skill-tag">Feature Engineering</span>
+        <span class="skill-tag">Model Evaluation</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">📊 Analytics and BI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Plotly</span>
+        <span class="skill-tag">Streamlit</span>
+        <span class="skill-tag">Excel Advanced</span>
+        <span class="skill-tag">Jupyter</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">🗄️ Data Engineering</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">ETL Pipelines</span>
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Data Wrangling</span>
+        <span class="skill-tag">Seaborn</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">📐 Statistics</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Statistical Inference</span>
+        <span class="skill-tag">Regression Analysis</span>
+        <span class="skill-tag">Hypothesis Testing</span>
+        <span class="skill-tag">Probability Theory</span>
+        <span class="skill-tag">Time Series</span>
+        <span class="skill-tag">EDA</span>
+      </div>
+    </div>
+    <div class="skill-category">
+      <div class="skill-cat-title">🛠️ Tools and Dev</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Quarto</span>
+        <span class="skill-tag">Agile</span>
+        <span class="skill-tag">Google Suite</span>
+        <span class="skill-tag">MS Office</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 · Projects</div>
+  <h2 class="section-title">Work that speaks<br>for <span>itself</span></h2>
+  <div class="projects-grid reveal">
+
+    <!-- FEATURED PROJECT -->
+    <div class="project-card featured">
+      <div class="project-header">
+        <span class="featured-badge">⚡ Featured · Live App</span>
+        <div class="project-icon">🇦🇪</div>
+        <div class="project-links" style="flex-direction:column;">
+          <a href="https://uae-smartcity-analytics.streamlit.app" target="_blank" class="project-link project-live">↗ Live App</a>
+          <a href="https://github.com/srikanthdhamodharan/UAE-Smartcity-Analytics" target="_blank" class="project-link">⌥ GitHub</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">UAE Smart City Analytics Dashboard</h3>
+        <p class="project-desc">
+          A fully interactive, live web application delivering end-to-end intelligence on the UAE economy, population, smart city KPIs, jobs market and real estate. Includes an ML-powered forecasting engine projecting trends to 2027 and an automated executive report generator. Anyone can explore it live in their browser right now — no installation required.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-val">9</div>
+            <div class="metric-lbl">Sections</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">2015-27</div>
+            <div class="metric-lbl">Data Range</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">GB</div>
+            <div class="metric-lbl">Forecasting</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">Live</div>
+            <div class="metric-lbl">Deployed</div>
+          </div>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">Plotly</span>
+          <span class="stack-tag">Scikit-learn</span>
+          <span class="stack-tag">Gradient Boosting</span>
+          <span class="stack-tag">Pandas</span>
+          <span class="stack-tag">NumPy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🏦</div>
+        <div class="project-links">
+          <a href="https://github.com/srikanthdhamodharan/bank-customer-analytics" target="_blank" class="project-link">⌥ GitHub</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Bank Customer Analytics and Churn Prediction</h3>
+        <p class="project-desc">
+          End-to-end ML system analysing 10,000 UAE bank customer records. Engineered customer segmentation into four risk tiers, benchmarked three ML models and quantified AED 180M+ in deposits at risk with a 400%+ ROI retention strategy.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-val">86%+</div>
+            <div class="metric-lbl">Accuracy</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">0.92</div>
+            <div class="metric-lbl">ROC-AUC</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">AED 180M</div>
+            <div class="metric-lbl">Risk Quantified</div>
+          </div>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Scikit-learn</span>
+          <span class="stack-tag">Random Forest</span>
+          <span class="stack-tag">SQL</span>
+          <span class="stack-tag">Power BI</span>
+          <span class="stack-tag">Pandas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon">🏙️</div>
+        <div class="project-links">
+          <a href="https://github.com/srikanthdhamodharan/dubai-realestate-analysis" target="_blank" class="project-link">⌥ GitHub</a>
+        </div>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Dubai Real Estate Market Analysis</h3>
+        <p class="project-desc">
+          Analysed 5,000+ Dubai property transactions (2020 to 2024) using Python. Identified 43% market growth, mapped investment hotspots across 10 areas and built an interactive Power BI dashboard with price heatmaps and trend analysis.
+        </p>
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-val">5,000+</div>
+            <div class="metric-lbl">Transactions</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">43%</div>
+            <div class="metric-lbl">Growth Found</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">10</div>
+            <div class="metric-lbl">Areas Mapped</div>
+          </div>
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Pandas</span>
+          <span class="stack-tag">Matplotlib</span>
+          <span class="stack-tag">Seaborn</span>
+          <span class="stack-tag">Power BI</span>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience-section">
+  <div class="section-label">04 · Experience</div>
+  <h2 class="section-title">Where I have<br><span>contributed</span></h2>
+  <div class="timeline reveal">
+
+    <div class="timeline-item">
+      <div class="timeline-dot">🎓</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Class Representative · MSc Business Analytics</div>
+        <div class="timeline-company">Dublin City University Business School</div>
+        <div class="timeline-date">September 2025 · Present · Dublin, Ireland</div>
+        <ul class="timeline-bullets">
+          <li>Primary communication bridge between 60+ international students from 20+ nationalities and DCU faculty and senior officials</li>
+          <li>Presented consolidated student feedback at formal Programme Board Review Meetings</li>
+          <li>Featured in DCU Business School student spotlight series on LinkedIn</li>
+          <li>Coordinated with Programme Coordinator to resolve academic queries and support student welfare</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot">💻</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Web Development Intern</div>
+        <div class="timeline-company">Prodigy InfoTech</div>
+        <div class="timeline-date">May 2024 · June 2024 · Chennai, India</div>
+        <ul class="timeline-bullets">
+          <li>Developed 10+ responsive UI components using HTML, CSS and JavaScript, improving user interaction by 25%</li>
+          <li>Integrated APIs for live data exchange reducing system latency by 30%</li>
+          <li>Collaborated in agile development teams achieving 99% crash-free production performance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot">🐍</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Python and DSA Programming Intern</div>
+        <div class="timeline-company">YBI Foundation · Remote</div>
+        <div class="timeline-date">April 2024 · May 2024 · Remote</div>
+        <ul class="timeline-bullets">
+          <li>Automated manual data workflows via Python scripting, reducing execution time by 40%</li>
+          <li>Re-engineered codebases using OOP principles with optimised data structures</li>
+          <li>Implemented algorithms supporting scalable data computation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot">📋</div>
+      <div class="timeline-content">
+        <div class="timeline-role">Tech Events Coordinator</div>
+        <div class="timeline-company">Sri Sairam Institute of Technology</div>
+        <div class="timeline-date">2023 · 2025 · Chennai, India</div>
+        <ul class="timeline-bullets">
+          <li>Planned and executed multiple inter-college technical events with 200+ participants across Chennai</li>
+          <li>Evaluated submissions across coding challenges, paper presentations and hackathons</li>
+          <li>Won multiple prizes in inter-college technical symposiums</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">05 · Education</div>
+  <h2 class="section-title">Academic<br><span>foundation</span></h2>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-degree">MSc Business Analytics</div>
+      <div class="edu-school">Dublin City University · Ireland</div>
+      <div class="edu-date">September 2025 · September 2026 (Expected)</div>
+      <div class="edu-grade">QS Ranked Top 500 Globally</div>
+      <div class="edu-modules">
+        Key modules: Python and SQL Analytics · Statistical Models and Methods · Machine Learning and AI · Business Intelligence and Power BI · Corporate Strategy · Research Methods
+        <br><br>
+        Elected Class Representative. Practicum project in real-world business analytics.
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor of Engineering · Computer Science</div>
+      <div class="edu-school">Sri Sairam Institute of Technology · Chennai, India</div>
+      <div class="edu-date">June 2021 · May 2025</div>
+      <div class="edu-grade">First Class Honours · 8.3/10 CGPA</div>
+      <div class="edu-modules">
+        Core: Data Structures and Algorithms · DBMS · Machine Learning · Big Data Analytics · Cloud Computing · Statistics and Linear Algebra · Probability Theory · Software Engineering
+        <br><br>
+        IEEE published research. Class Representative for all four years. Tech Events Coordinator. UBA Volunteer. Scouts Jamboree SDG participant.
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+  <div class="section-label" style="margin-top:20px;">Achievements and Recognition</div>
+
+  <!-- FEATURED ACHIEVEMENT -->
+  <div class="reveal" style="margin-top:28px;">
+    <div style="background: linear-gradient(135deg, rgba(0,200,255,0.08), rgba(0,255,157,0.05));
+                border: 1px solid rgba(0,200,255,0.25);
+                border-radius: 20px; padding: 32px; margin-bottom: 24px;
+                display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center;">
+      <div style="text-align:center; padding: 0 12px;">
+        <div style="font-size: 3rem; margin-bottom: 8px;">📄</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+                    color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase;">
+          Published
+        </div>
+      </div>
+      <div>
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap;">
+          <span style="font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem; color:var(--text);">
+            IEEE Xplore Published Researcher
+          </span>
+          <span style="background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(0,255,157,0.1));
+                       border: 1px solid rgba(0,200,255,0.3); color: var(--accent);
+                       padding: 3px 12px; border-radius: 100px;
+                       font-size: 0.7rem; font-family:'JetBrains Mono',monospace;">
+            Peer-reviewed
+          </span>
+        </div>
+        <p style="color: var(--text2); font-size: 0.925rem; line-height: 1.7; margin-bottom: 16px;">
+          Authored and published a peer-reviewed research paper on an IoT-based Ambulance Tracking and Health Monitoring System in an IEEE conference. Engineered a Python backend processing over 1,000 sensor data points per minute at 99.9% accuracy, demonstrating real-world engineering impact at undergraduate level.
+        </p>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                       color:var(--text3); padding:4px 10px; border-radius:5px;
+                       font-size:0.75rem; font-family:'JetBrains Mono',monospace;">Python</span>
+          <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                       color:var(--text3); padding:4px 10px; border-radius:5px;
+                       font-size:0.75rem; font-family:'JetBrains Mono',monospace;">IoT Analytics</span>
+          <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                       color:var(--text3); padding:4px 10px; border-radius:5px;
+                       font-size:0.75rem; font-family:'JetBrains Mono',monospace;">IEEE Xplore</span>
+          <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                       color:var(--text3); padding:4px 10px; border-radius:5px;
+                       font-size:0.75rem; font-family:'JetBrains Mono',monospace;">Real-time Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENT CARDS GRID -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+              gap: 20px;" class="reveal">
+
+    <!-- Class Rep x2 -->
+    <div style="background: var(--card); border: 1px solid var(--border);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;
+                position: relative; overflow: hidden;"
+         onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(0,200,255,0.15)'"
+         onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">🎓</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        Class Representative · Both Degrees
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Elected Class Representative consecutively across both BSc Computer Science at Sri Sairam Institute of Technology and MSc Business Analytics at DCU Ireland. Represented 60+ students at formal Programme Board Review Meetings with senior university officials.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(0,255,157,0.06); border:1px solid rgba(0,255,157,0.15);
+                     color:var(--accent2); padding:3px 10px; border-radius:5px; font-size:0.73rem;">DCU Ireland</span>
+        <span style="background:rgba(0,255,157,0.06); border:1px solid rgba(0,255,157,0.15);
+                     color:var(--accent2); padding:3px 10px; border-radius:5px; font-size:0.73rem;">SSIT India</span>
+        <span style="background:rgba(0,255,157,0.06); border:1px solid rgba(0,255,157,0.15);
+                     color:var(--accent2); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Leadership</span>
+      </div>
+    </div>
+
+    <!-- Symposium Prizes -->
+    <div style="background: var(--card); border: 1px solid var(--border);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;"
+         onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(0,200,255,0.15)'"
+         onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">🏆</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        Inter-College Symposium Prize Winner
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Won multiple prizes across inter-college technical symposiums in Chennai competing against students from leading engineering institutions. Categories included coding challenges, technical paper presentation and debugging competitions.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Coding</span>
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Paper Presentation</span>
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Debugging</span>
+      </div>
+    </div>
+
+    <!-- DCU Spotlight -->
+    <div style="background: var(--card); border: 1px solid var(--border);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;"
+         onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(0,200,255,0.15)'"
+         onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">🎬</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        DCU Business School Student Spotlight
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Selected by DCU Business School to feature in their official student spotlight series on LinkedIn. Shared experience in Tamil with English subtitles, representing the international diversity of the MSc Business Analytics cohort to a global audience.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                     color:var(--accent); padding:3px 10px; border-radius:5px; font-size:0.73rem;">DCU Official</span>
+        <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                     color:var(--accent); padding:3px 10px; border-radius:5px; font-size:0.73rem;">LinkedIn Feature</span>
+      </div>
+    </div>
+
+    <!-- UBA -->
+    <div style="background: var(--card); border: 1px solid var(--border);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;"
+         onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(0,200,255,0.15)'"
+         onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">🌱</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        Unnat Bharat Abhiyan Volunteer
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Volunteered for the Government of India and IIT Delhi flagship programme connecting higher education institutions with rural communities through technology and development. Applied CS engineering knowledge to address real-world social development challenges.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(0,255,157,0.06); border:1px solid rgba(0,255,157,0.15);
+                     color:var(--accent2); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Govt of India</span>
+        <span style="background:rgba(0,255,157,0.06); border:1px solid rgba(0,255,157,0.15);
+                     color:var(--accent2); padding:3px 10px; border-radius:5px; font-size:0.73rem;">IIT Delhi</span>
+      </div>
+    </div>
+
+    <!-- SDG -->
+    <div style="background: var(--card); border: 1px solid var(--border);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;"
+         onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(0,200,255,0.15)'"
+         onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">🌍</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        UN SDG 12 Volunteer · National Jamboree 2025
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Volunteered as a representative for UN SDG 12 (Responsible Consumption and Production) at the 2025 National Jamboree held in Trichy, India. Addressed and engaged with 5,000+ participants including students from across India, teachers, government officers and professionals. Delivered awareness sessions on sustainable consumption practices and environmental responsibility.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                     color:var(--accent); padding:3px 10px; border-radius:5px; font-size:0.73rem;">UN SDG 12</span>
+        <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                     color:var(--accent); padding:3px 10px; border-radius:5px; font-size:0.73rem;">5,000+ Participants</span>
+        <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                     color:var(--accent); padding:3px 10px; border-radius:5px; font-size:0.73rem;">National Level</span>
+        <span style="background:rgba(0,200,255,0.06); border:1px solid rgba(0,200,255,0.15);
+                     color:var(--accent); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Trichy 2025</span>
+      </div>
+    </div>
+
+    <!-- STAGE SPEAKER -->
+    <div style="background: linear-gradient(135deg, rgba(255,107,53,0.06), rgba(0,200,255,0.04));
+                border: 1px solid rgba(255,107,53,0.2);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;"
+         onmouseover="this.style.borderColor='var(--accent3)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(255,107,53,0.15)'"
+         onmouseout="this.style.borderColor='rgba(255,107,53,0.2)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">🎤</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        Public Speaker · 5,000+ Audience
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Experienced stage speaker with a demonstrated ability to engage large, diverse audiences. Delivered public addresses at the 2025 National Jamboree to 5,000+ attendees including students, educators, government officers and industry professionals. Developed strong public speaking, stakeholder engagement and leadership skills through large-scale coordination and outreach across national events.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Public Speaking</span>
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Stakeholder Engagement</span>
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Leadership</span>
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">5,000+ Audience</span>
+      </div>
+    </div>
+
+    <!-- Tech Events Coordinator -->
+    <div style="background: var(--card); border: 1px solid var(--border);
+                border-radius: 16px; padding: 24px; transition: all 0.3s;"
+         onmouseover="this.style.borderColor='var(--accent)'; this.style.transform='translateY(-4px)'; this.style.boxShadow='0 0 40px rgba(0,200,255,0.15)'"
+         onmouseout="this.style.borderColor='var(--border)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+      <div style="font-size:2rem; margin-bottom:14px;">📋</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:700; font-size:1rem;
+                  color:var(--text); margin-bottom:8px;">
+        Tech Events Coordinator
+      </div>
+      <p style="color:var(--text2); font-size:0.85rem; line-height:1.65; margin-bottom:14px;">
+        Planned and executed multiple inter-college technical events and competitions at Sri Sairam Institute of Technology, managing 200+ participants across Chennai colleges. Coordinated logistics, scheduling and evaluation across coding, hackathon and paper presentation events.
+      </p>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">200+ Participants</span>
+        <span style="background:rgba(255,107,53,0.08); border:1px solid rgba(255,107,53,0.2);
+                     color:var(--accent3); padding:3px 10px; border-radius:5px; font-size:0.73rem;">Event Management</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label">06 · Contact</div>
+  <h2 class="section-title">Let's build something<br><span>together</span></h2>
+  <div class="contact-grid reveal">
+    <div class="contact-text">
+      <p>
+        I am actively seeking Data Analyst, Business Analyst, BI Analyst, Junior Data Scientist and Analytics Consultant roles in <strong>UAE</strong> and <strong>Ireland</strong> from September 2026.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:srikanthdhamodharan@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉️</span>
+          <div>
+            <span class="contact-link-label">Email</span>
+            srikanthdhamodharan@gmail.com
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/sri-dhamodharan" target="_blank" class="contact-link">
+          <span class="contact-link-icon">💼</span>
+          <div>
+            <span class="contact-link-label">LinkedIn</span>
+            linkedin.com/in/sri-dhamodharan
+          </div>
+        </a>
+        <a href="https://github.com/srikanthdhamodharan" target="_blank" class="contact-link">
+          <span class="contact-link-icon">⌥</span>
+          <div>
+            <span class="contact-link-label">GitHub</span>
+            github.com/srikanthdhamodharan
+          </div>
+        </a>
+        <a href="https://uae-smartcity-analytics.streamlit.app" target="_blank" class="contact-link">
+          <span class="contact-link-icon">🚀</span>
+          <div>
+            <span class="contact-link-label">Live Portfolio App</span>
+            uae-smartcity-analytics.streamlit.app
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-availability">
+      <div class="avail-title">Availability Status</div>
+      <div class="avail-status">
+        <div class="avail-dot"></div>
+        <span class="avail-text">Actively seeking opportunities</span>
+      </div>
+      <div class="avail-details">
+        <div class="avail-item">
+          <span class="avail-key">Graduation</span>
+          <span class="avail-val green">September 2026</span>
+        </div>
+        <div class="avail-item">
+          <span class="avail-key">Primary Target</span>
+          <span class="avail-val blue">UAE (Dubai · Abu Dhabi)</span>
+        </div>
+        <div class="avail-item">
+          <span class="avail-key">Secondary Target</span>
+          <span class="avail-val blue">Ireland (Dublin)</span>
+        </div>
+        <div class="avail-item">
+          <span class="avail-key">UAE Visa</span>
+          <span class="avail-val green">Job Seeker Visa Eligible</span>
+        </div>
+        <div class="avail-item">
+          <span class="avail-key">Ireland Visa</span>
+          <span class="avail-val green">Graduate Visa Eligible</span>
+        </div>
+        <div class="avail-item">
+          <span class="avail-key">Work Type</span>
+          <span class="avail-val">Full-time · Hybrid · On-site</span>
+        </div>
+        <div class="avail-item">
+          <span class="avail-key">Response Time</span>
+          <span class="avail-val green">Within 24 hours</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 Srikanth Dhamodharan · Built with HTML, CSS and passion</div>
+  <div class="footer-links">
+    <a href="https://github.com/srikanthdhamodharan" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/sri-dhamodharan" target="_blank">LinkedIn</a>
+    <a href="https://uae-smartcity-analytics.streamlit.app" target="_blank">Live App</a>
+    <a href="mailto:srikanthdhamodharan@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 100) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--accent)' : '';
+  });
+});
+
+// Typing effect for hero badge
+const badge = document.querySelector('.hero-badge');
+</script>
+</body>
+</html>
